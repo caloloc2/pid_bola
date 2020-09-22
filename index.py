@@ -77,9 +77,5 @@ def video_feed():
     return Response(gen(video_camara),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-if __name__ == "__main__":
-    # v = threading.Thread(target=movimientos_servos, args=())
-    # v.daemon = True
-    # v.start()
-    
+if __name__ == "__main__":    
     app.run(host='0.0.0.0', debug=False)

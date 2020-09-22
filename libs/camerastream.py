@@ -51,8 +51,3 @@ class VideoStreaming:
     
     def __del__(self):
         self.stopped = True
-
-    def change_parameters(self, **kwargs):
-        for (arg, value) in kwargs.items():
-            setattr(self.camera, arg, value)
-            print('[INFO] - Parametro '+str(arg)+' modificado, valor='+str(value))

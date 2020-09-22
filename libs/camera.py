@@ -31,15 +31,13 @@ class VideoCamera(object):
             for i in circles[0, :]:
                 center = (i[0], i[1])
 
-                # EJE X
-                print(self.control_x.get_gains())
+                # EJE X                
                 servox = self.control_x.compute(154, i[0], self.muestreo)
                 servox_m = self.control_x.map(servox, 6.5, 12, 12, 6.5)
                 print(center, servox, servox_m)
                 self.servo2.changeDuty(servox_m)
 
-                # EJE Y
-                print(self.control_y.get_gains())
+                # EJE Y                
                 servoy = self.control_y.compute(114, i[1], self.muestreo)
                 servoy_m = self.control_y.map(servoy, 1, 9.5, 9.5, 1)
                 print(center, servoy, servoy_m)                
@@ -59,12 +57,3 @@ class VideoCamera(object):
     def cambiar_PID(self, pidx, pidy):
         self.control_x.set_gains(pidx[0], pidx[1], pidx[2], self.tau)
         self.control_y.set_gains(pidy[0], pidy[1], pidy[2], self.tau)
-
-    def cambiar_parametros(self, brillo, contraste, efectos, exposicion, balance):
-        self.vs.change_parameters(
-            brightness = brillo, 
-            contrast = contraste, 
-            image_effect = efectos, 
-            exposure_mode = exposicion, 
-            awb_mode = balance
-        )
