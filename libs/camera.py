@@ -32,7 +32,7 @@ class VideoCamera(object):
                 center = (i[0], i[1])
 
                 # EJE X                
-                servox = self.control_x.compute(154, i[0], self.muestreo)
+                servox = self.control_x.compute(156, i[0], self.muestreo)
                 servox_m = self.control_x.map(servox, 6.5, 12, 12, 6.5)
                 print(center, servox, servox_m)
                 self.servo2.changeDuty(servox_m)
@@ -40,8 +40,8 @@ class VideoCamera(object):
                 # EJE Y                
                 servoy = self.control_y.compute(114, i[1], self.muestreo)
                 servoy_m = self.control_y.map(servoy, 1, 9.5, 9.5, 1)
-                print(center, servoy, servoy_m)                
-                self.servo1.changeDuty(servoy_m)
+                # print(center, servoy, servoy_m)                
+                # self.servo1.changeDuty(servoy_m)
                 
                 # circle center
                 cv2.circle(frame, center, 1, (0, 100, 100), 2)
@@ -51,6 +51,7 @@ class VideoCamera(object):
 
         ret, jpeg = cv2.imencode('.jpg', frame)
         self.muestreo = time.time() - tiempo
+        time.sleep(0.5)
         
         return jpeg.tobytes()
     

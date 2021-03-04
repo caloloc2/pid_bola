@@ -16,7 +16,7 @@ class Servos():
         self.__control = GPIO.PWM(self.__pin, self.__frequency)
         self.__control.start(0)
     
-    def changeDuty(self, new_frequency):
+    def changeDuty(self, new_frequency):        
         self.__control.ChangeDutyCycle(new_frequency)
     
     def stop_servo(self):

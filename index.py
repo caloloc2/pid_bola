@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, Response
 from libs.setup import Setup
-from libs.camera import VideoCamera
+# from libs.camera import VideoCamera
 import time, json
 
 config = Setup()
@@ -9,7 +9,7 @@ app = Flask(__name__)
 pidx = [config.get_parameter("kpx"), config.get_parameter("kix"), config.get_parameter("kdx")]
 pidy = [config.get_parameter("kpy"), config.get_parameter("kiy"), config.get_parameter("kdy")]
 
-video_camara = VideoCamera(pidx, pidy)
+# video_camara = VideoCamera(pidx, pidy)
 
 @app.route('/')
 def inicio():
