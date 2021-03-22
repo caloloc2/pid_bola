@@ -94,7 +94,6 @@ def setPSO():
     print("[INFO] PSO calculando valores...")
     return json.dumps({'pidx' : pidx, 'pidy' : pidy, 'status':'OK'});
 
-
 @app.route('/getPos')
 def getPos():
     global position 
@@ -127,7 +126,6 @@ def control():
         muestreo = time.time() - tiempo
         time.sleep(0.25)
 
-# Hilo para Control de respiracion del paciente
 resp = threading.Thread(target = control)
 resp.daemon = True
 resp.start()
