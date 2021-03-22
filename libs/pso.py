@@ -96,33 +96,3 @@ class PSO:
             A.append(self.__fitness_mejor_posicion_global_particula)  # record the best fitness
 
         return self.__mejor_posicion_global_particula
-
-# def definir_funcion(O):
-#     x = O[0]
-#     y = O[1]
-#     nonlinear_constraint = (x - 1) ** 3 - y + 1
-#     linear_constraint = x + y - 2
-#     if nonlinear_constraint > 0:
-#         penalty1 = 1
-#     else:
-#         penalty1 = 0
- 
-#     if linear_constraint > 0:
-#         penalty2 = 1
-#     else:
-#         penalty2 = 0
- 
-#     z = (1 - x) ** 2 + 100 * (y - x ** 2) ** 2 + penalty1 + penalty2    
-#     return z
-
-# funcion_transferencia = definir_funcion
-# numero_particulas = 12
-# iteraciones = 100
-# limites = [(-1, 1), (0, 1)] # [0, 0]
-# parametros = [0.5, 1, 2] # w, c1, c2
-
-# pso = PSO(funcion_transferencia, limites, numero_particulas, iteraciones, parametros).evaluar()
-
-# # respuesta = pso.evaluar()
-
-# print(pso[0])
