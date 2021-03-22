@@ -6,3 +6,6 @@ pip3 install flask
 
 # Ejecucion
 python principal.py
+<br>
+Abrir en navegador<br>
+http://localhost:5000
