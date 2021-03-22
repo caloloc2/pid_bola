@@ -147,6 +147,32 @@ if (canvas && canvas.getContext) {
             e.preventDefault()
             setPID()
         })
+
+        function PSO(){
+            $.ajax({
+                url: '/setPSO',
+                data: {},
+                type: 'POST',
+                success: function(response) {
+                    // console.log(response);
+                    var respuesta = JSON.parse(response)
+
+                    if (respuesta.status == "OK"){
+                        var pidx = respuesta.pidx
+                        var pidy = respuesta.pidy
+                        document.getElementById("kpx").value = pidx[0]                        
+                        document.getElementById("kix").value = pidx[1]
+                        document.getElementById("kdx").value = pidx[2]
+                        document.getElementById("kpy").value = pidy[0]
+                        document.getElementById("kiy").value = pidy[1]
+                        document.getElementById("kdy").value = pidy[2]
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
     }
 }
 
