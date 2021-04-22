@@ -49,7 +49,7 @@ def setPos():
     position[0] = float(request.form['X'])
     position[1] = float(request.form['Y'])        
     print("[INFO] Posicion ("+str(position[0])+", "+str(position[1])+") modificada por usuario")
-    return json.dumps({'status':'OK'});
+    return json.dumps({'status':'OK'})
 
 @app.route('/setPID', methods=['POST'])
 def setPID():
@@ -72,7 +72,7 @@ def setPID():
     control_yb.set_gains(pidy[0], pidy[1], pidy[2], 0.1)
 
     print("[INFO] PID modificada por usuario")
-    return json.dumps({'status':'OK'});
+    return json.dumps({'status':'OK'})
 
 @app.route('/setPSO', methods=['POST'])
 def setPSO():
@@ -95,12 +95,12 @@ def setPSO():
     control_yb.set_gains(pidy[0], pidy[1], pidy[2], 0.1)
 
     print("[INFO] PSO calculando valores...")
-    return json.dumps({'pidx' : pidx, 'pidy' : pidy, 'status':'OK'});
+    return json.dumps({'pidx' : pidx, 'pidy' : pidy, 'status':'OK'})
 
 @app.route('/getPos')
 def getPos():
     global position 
-    return json.dumps({'position' : position, 'status':'OK'});
+    return json.dumps({'position' : position, 'status':'OK'})
 
 def control():
     global control_xa
