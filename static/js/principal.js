@@ -14,12 +14,12 @@ if (canvas && canvas.getContext) {
             ctx.strokeStyle = "#444";
             ctx.lineWidth = 1;
             ctx.beginPath();
-            ctx.moveTo(0,250);
+            ctx.moveTo(0, 250);
             ctx.lineTo(500, 250);
             ctx.stroke();
-            
+
             ctx.beginPath();
-            ctx.moveTo(250,0);
+            ctx.moveTo(250, 0);
             ctx.lineTo(250, 500);
             ctx.stroke();
 
@@ -31,7 +31,7 @@ if (canvas && canvas.getContext) {
             ctx.fill();
             ctx.stroke();
             ctx.closePath();
-        }        
+        }
 
         function oMousePos(canvas, evt) {
             var rect = canvas.getBoundingClientRect();
@@ -56,8 +56,8 @@ if (canvas && canvas.getContext) {
 
             if (arrastrar) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                X = mousePos.x - 250, 
-                Y = mousePos.y - 250
+                X = mousePos.x - 250,
+                    Y = mousePos.y - 250
 
                 bola(X, Y);
             }
@@ -71,50 +71,50 @@ if (canvas && canvas.getContext) {
 
         /// envio y actualizacion de posicion de la bola
 
-        var reload_pos = null;        
+        var reload_pos = null;
 
-        function Actualizar_Posicion(){
+        function Actualizar_Posicion() {
             reload_pos = setInterval(() => {
-                getPos()
-            }, 500);            
+                getPos()                
+            }, 500);
         }
 
-        function getPos(){
+        function getPos() {
             $.ajax({
-                url: '/getPos',                
-                success: function(response) {
-                    
+                url: '/getPos',
+                success: function (response) {
+
                     var respuesta = JSON.parse(response)
                     // console.log(respuesta);
-                    if (respuesta.status == "OK"){                        
+                    if (respuesta.status == "OK") {
                         X = parseFloat(respuesta.position[0])
                         Y = parseFloat(respuesta.position[1])
 
                         bola(X, Y);
                     }
                 },
-                error: function(error) {
-                    console.log(error);                    
-                }
-            });
-        }    
-        
-        function setPos(X, Y){
-            var position = {X,  Y}
-            $.ajax({
-                url: '/setPos',
-                data: position,
-                type: 'POST',
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(error) {
+                error: function (error) {
                     console.log(error);
                 }
             });
         }
 
-        function setPID(){
+        function setPos(X, Y) {
+            var position = { X, Y }
+            $.ajax({
+                url: '/setPos',
+                data: position,
+                type: 'POST',
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function setPID() {
             var pid = {
                 kpx: document.getElementById("kpx").value,
                 kix: document.getElementById("kix").value,
@@ -127,10 +127,10 @@ if (canvas && canvas.getContext) {
                 url: '/setPID',
                 data: pid,
                 type: 'POST',
-                success: function(response) {
+                success: function (response) {
                     console.log(response);
                 },
-                error: function(error) {
+                error: function (error) {
                     console.log(error);
                 }
             });
@@ -148,19 +148,19 @@ if (canvas && canvas.getContext) {
             setPID()
         })
 
-        function PSO(){
+        function PSO() {
             $.ajax({
                 url: '/setPSO',
                 data: {},
                 type: 'POST',
-                success: function(response) {
+                success: function (response) {
                     // console.log(response);
                     var respuesta = JSON.parse(response)
 
-                    if (respuesta.status == "OK"){
+                    if (respuesta.status == "OK") {
                         var pidx = respuesta.pidx
                         var pidy = respuesta.pidy
-                        document.getElementById("kpx").value = pidx[0]                        
+                        document.getElementById("kpx").value = pidx[0]
                         document.getElementById("kix").value = pidx[1]
                         document.getElementById("kdx").value = pidx[2]
                         document.getElementById("kpy").value = pidy[0]
@@ -168,7 +168,7 @@ if (canvas && canvas.getContext) {
                         document.getElementById("kdy").value = pidy[2]
                     }
                 },
-                error: function(error) {
+                error: function (error) {
                     console.log(error);
                 }
             });

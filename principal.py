@@ -2,6 +2,7 @@ import time, json, math, threading, random
 from flask import Flask, render_template, request, Response
 from libs.pid import PID
 from libs.pso import PSO
+from libs.opencv import OpenCV
 
 app = Flask(__name__)
 
@@ -26,7 +27,7 @@ def definir_funcion(O):
     z = (1 - x) ** 2 + 100 * (y - x ** 2) ** 2 + penalty1 + penalty2    
     return z
 
-set_point = [0, 0] # posicion central en canvas x, y (width 500, height 500) 
+set_point = [250, 250] # posicion central en canvas x, y (width 500, height 500) 
 position = randomicos()
 
 pidx = [0, 0, 0] # pid para control en el eje x
@@ -36,6 +37,8 @@ control_xa = PID(pidx[0], pidx[1], pidx[2], 0.1, 0, 500)
 control_xb = PID(pidx[0], pidx[1], pidx[2], 0.1, -500, 0)
 control_ya = PID(pidy[0], pidy[1], pidy[2], 0.1, 0, 500)
 control_yb = PID(pidy[0], pidy[1], pidy[2], 0.1, -500, 0)
+
+canvas = OpenCV
 
 @app.route('/')
 def inicio():
@@ -106,24 +109,29 @@ def control():
     global control_yb
     global position
     global set_point
+    global image
         
     muestreo = 0
 
     while (True):
         tiempo = time.time()
-        
-        error_xa = control_xa.compute(set_point[0], position[0], muestreo)
-        error_xb = control_xb.compute(set_point[0], position[0], muestreo)
+        canvas.image(position[0], position[1])
+        posx, posy = canvas.analiza()
+        print(posx, posy)
 
-        error_ya = control_ya.compute(set_point[1], position[1], muestreo)
-        error_yb = control_yb.compute(set_point[1], position[1], muestreo)
+        error_xa = control_xa.compute(set_point[0], posx, muestreo)
+        error_xb = control_xb.compute(set_point[0], posx, muestreo)
+
+        error_ya = control_ya.compute(set_point[1], posy, muestreo)
+        error_yb = control_yb.compute(set_point[1], posy, muestreo)
 
         position[0] += error_xa
         position[0] += error_xb
         position[1] += error_ya
         position[1] += error_yb        
 
-        muestreo = time.time() - tiempo
+        muestreo = time.time() - tiempo            
+        
         time.sleep(0.25)
 
 resp = threading.Thread(target = control)
