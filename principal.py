@@ -33,10 +33,10 @@ position = randomicos()
 pidx = [0, 0, 0] # pid para control en el eje x
 pidy = [0, 0, 0] # pid para control en el eje y
 
-control_xa = PID(pidx[0], pidx[1], pidx[2], 0.1, 0, 500)
-control_xb = PID(pidx[0], pidx[1], pidx[2], 0.1, -500, 0)
-control_ya = PID(pidy[0], pidy[1], pidy[2], 0.1, 0, 500)
-control_yb = PID(pidy[0], pidy[1], pidy[2], 0.1, -500, 0)
+control_xa = PID(pidx[0], pidx[1], pidx[2], 0.1, 0, 250)
+control_xb = PID(pidx[0], pidx[1], pidx[2], 0.1, -250, 0)
+control_ya = PID(pidy[0], pidy[1], pidy[2], 0.1, 0, 250)
+control_yb = PID(pidy[0], pidy[1], pidy[2], 0.1, -250, 0)
 
 canvas = OpenCV
 
