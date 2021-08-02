@@ -66,7 +66,7 @@ if (canvas && canvas.getContext) {
         canvas.addEventListener("mouseup", function (evt) {
             arrastrar = false;
             setPos(X, Y)
-            Actualizar_Posicion()
+            // Actualizar_Posicion()
         }, false);
 
         /// envio y actualizacion de posicion de la bola
@@ -74,10 +74,13 @@ if (canvas && canvas.getContext) {
         var reload_pos = null;
 
         function Actualizar_Posicion() {
-            reload_pos = setInterval(() => {
+            reload_pos = setInterval(() => {                
                 getPos()                
-            }, 500);
+            }, 900);
         }
+
+        var graficasx = []
+        var graficasy = []
 
         function getPos() {
             $.ajax({
@@ -90,11 +93,30 @@ if (canvas && canvas.getContext) {
                         X = parseFloat(respuesta.position[0])
                         Y = parseFloat(respuesta.position[1])
 
+                        graficasx = respuesta.valoresx.split("#")
+                        graficasy = respuesta.valoresy.split("#")
+
                         bola(X, Y);
+
+                        if (iniciado == 1){
+                            if (pasos_actual<= num_pasos){
+                                // anadir a series y categorias   
+                                pasos.push("pos"+pasos_actual)   
+                                dataset.push(255)                          
+                                pasos_actual += 1
+                                console.log("pasos_actual", pasos_actual);
+                            }else{                                
+                                graficar()
+                                iniciado = 0                         
+                            }
+                        }                        
                     }
                 },
                 error: function (error) {
                     console.log(error);
+                },
+                fail: function(er){
+                    console.log(er);
                 }
             });
         }
@@ -137,15 +159,32 @@ if (canvas && canvas.getContext) {
         }
 
         Actualizar_Posicion()
+        iniciado = 0
 
         $("#formulario_x").submit(e => {
             e.preventDefault()
             setPID()
+
+            iniciado = 1
+            pasos_actual = 0
+            pasos = [];
+            datax = [];
+            datay = [];
+            dataset = [];
+            Actualizar_Posicion()
         })
 
         $("#formulario_y").submit(e => {
             e.preventDefault()
             setPID()
+
+            iniciado = 1
+            pasos_actual = 0
+            pasos = [];
+            datax = [];
+            datay = [];
+            dataset = [];
+            Actualizar_Posicion()
         })
 
         function PSO() {
@@ -173,6 +212,97 @@ if (canvas && canvas.getContext) {
                 }
             });
         }
+        
+        function Reiniciar(){
+            $.ajax({
+                url: '/reset',                
+                type: 'GET',
+                success: function (response) {
+                    console.log(response);                    
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+            arrastrar = false;            
+
+            graficasx = []
+            graficasy = []
+
+            pasos_actual = 0
+            pasos = [];
+            datax = [];
+            datay = [];
+            dataset = [];
+
+            reload_pos = null;
+
+            Actualizar_Posicion()
+            iniciado = 0
+        }
+
+        var pasos = [];
+        var dataset = [];
+        var datax = [];
+        var datay = [];
+        var num_pasos = 15;
+        var pasos_actual = 0;
+        var iniciado = 0;
+
+        function graficar(){
+            
+            graficasx.splice((graficasx.length-1), 1)
+            graficasy.splice((graficasy.length-1), 1)
+
+            Highcharts.chart('grafica', {
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: 'Grafica PID'
+                },
+              
+                xAxis: {
+                    categories: pasos
+                },
+                yAxis: {
+                    title: {
+                        text: 'Posicion'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    }
+                },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true
+                },
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            radius: 4,
+                            lineColor: '#666666',
+                            lineWidth: 1
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'SetPoint',                    
+                        data: dataset
+                
+                    },{
+                        name: 'PID X',                    
+                        data: graficasx.map(Number)
+                    },{
+                        name: 'PID Y',
+                        data: graficasy.map(Number)
+                    }
+                ]
+            });
+        }
     }
 }
-
