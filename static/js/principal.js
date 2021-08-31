@@ -199,12 +199,22 @@ if (canvas && canvas.getContext) {
                     if (respuesta.status == "OK") {
                         var pidx = respuesta.pidx
                         var pidy = respuesta.pidy
-                        document.getElementById("kpx").value = pidx[0]
-                        document.getElementById("kix").value = pidx[1]
-                        document.getElementById("kdx").value = pidx[2]
-                        document.getElementById("kpy").value = pidy[0]
-                        document.getElementById("kiy").value = pidy[1]
-                        document.getElementById("kdy").value = pidy[2]
+                        document.getElementById("kpx").value = parseFloat(pidx[0]).toFixed(5)
+                        document.getElementById("kix").value = parseFloat(pidx[1]).toFixed(5)
+                        document.getElementById("kdx").value = parseFloat(pidx[2]).toFixed(5)
+                        document.getElementById("kpy").value = parseFloat(pidy[0]).toFixed(5)
+                        document.getElementById("kiy").value = parseFloat(pidy[1]).toFixed(5)
+                        document.getElementById("kdy").value = parseFloat(pidy[2]).toFixed(5)
+
+                        setPID()
+
+                        iniciado = 1
+                        pasos_actual = 0
+                        pasos = [];
+                        datax = [];
+                        datay = [];
+                        dataset = [];
+                        Actualizar_Posicion()
                     }
                 },
                 error: function (error) {
@@ -240,6 +250,8 @@ if (canvas && canvas.getContext) {
 
             Actualizar_Posicion()
             iniciado = 0
+
+            $("#grafica").html("")
         }
 
         var pasos = [];

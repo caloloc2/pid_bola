@@ -123,13 +123,13 @@ def setPSO():
     global valoresx
     global valoresy
 
-    pidx[0] = abs(PSO(definir_funcion, [(-1, 1), (0.5, 1)], 12, 100, [0.2, 1, 2]).evaluar()[0])
+    pidx[0] = abs(PSO(definir_funcion, [(-1, 1), (0.5, 0.988)], 12, 100, [0.2, 1, 2]).evaluar()[0])
     pidx[1] = 0
-    pidx[2] = abs(PSO(definir_funcion, [(-1, 1), (-0.01, 0.0001)], 12, 100, [0.5, 1, 2]).evaluar()[0])
+    pidx[2] = 0 #abs(PSO(definir_funcion, [(-1, 1), (-0.01, 0.0001)], 12, 100, [0.5, 1, 2]).evaluar()[0])
 
-    pidy[0] = abs(PSO(definir_funcion, [(-1, 1), (0.3, 1)], 12, 100, [0.12, 1, 2]).evaluar()[0])
+    pidy[0] = abs(PSO(definir_funcion, [(-1, 1), (0.3, 0.988)], 12, 100, [0.12, 1, 2]).evaluar()[0])
     pidy[1] = 0
-    pidy[2] = abs(PSO(definir_funcion, [(-1, 1), (-0.01, 0.00001)], 12, 100, [0.5, 1, 2]).evaluar()[0])
+    pidy[2] = 0 #abs(PSO(definir_funcion, [(-1, 1), (-0.01, 0.00001)], 12, 100, [0.5, 1, 2]).evaluar()[0])
 
     control_xa.set_gains(pidx[0], pidx[1], pidx[2], 0.1)    
     control_xb.set_gains(pidx[0], pidx[1], pidx[2], 0.1)    
@@ -184,7 +184,7 @@ def control():
             # print(posx, posy)
             valoresx.append(posx)
             valoresy.append(posy)
-            print(valoresx, valoresy)
+            # print(valoresx, valoresy)
 
             if ((posx != 0) and (posy != 0)):
                 error_xa = control_xa.compute(set_point[0], posx, muestreo)
