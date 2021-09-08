@@ -10,13 +10,10 @@ python principal.py
 Abrir en navegador<br>
 http://localhost:5000
 
-
-# HIGHCHART
-# Libreria para graficacion de curvas
+# HIGHCHART - Libreria para graficacion de curvas
 https://www.highcharts.com/blog/download/
 
-# PSO
-# Links de informacion
+# PSO - Links de informacion
 https://nathanrooy.github.io/posts/2016-08-17/simple-particle-swarm-optimization-with-python/<br>
 https://pythonhosted.org/pyswarm/<br>
 https://www.youtube.com/watch?v=JqTASBiMVT8<br>
