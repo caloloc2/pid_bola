@@ -104,7 +104,7 @@ if (canvas && canvas.getContext) {
                                 pasos.push("pos"+pasos_actual)   
                                 dataset.push(255)                          
                                 pasos_actual += 1
-                                console.log("pasos_actual", pasos_actual);
+                                // console.log("pasos_actual", pasos_actual);
                             }else{                                
                                 graficar()
                                 iniciado = 0                         
@@ -202,9 +202,16 @@ if (canvas && canvas.getContext) {
                         document.getElementById("kpx").value = parseFloat(pidx[0]).toFixed(5)
                         document.getElementById("kix").value = parseFloat(pidx[1]).toFixed(5)
                         document.getElementById("kdx").value = parseFloat(pidx[2]).toFixed(5)
+
+                        $("#kix_e").html(parseFloat(pidx[1]).toExponential(2))
+                        $("#kdx_e").html(parseFloat(pidx[2]).toExponential(2))
+
                         document.getElementById("kpy").value = parseFloat(pidy[0]).toFixed(5)
                         document.getElementById("kiy").value = parseFloat(pidy[1]).toFixed(5)
                         document.getElementById("kdy").value = parseFloat(pidy[2]).toFixed(5)
+
+                        $("#kiy_e").html(parseFloat(pidx[1]).toExponential(2))
+                        $("#kdy_e").html(parseFloat(pidx[2]).toExponential(2))
 
                         setPID()
 

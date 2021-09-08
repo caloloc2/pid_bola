@@ -125,11 +125,11 @@ def setPSO():
 
     pidx[0] = abs(PSO(definir_funcion, [(-1, 1), (0.5, 0.988)], 12, 100, [0.2, 1, 2]).evaluar()[0])
     pidx[1] = 0
-    pidx[2] = 0 #abs(PSO(definir_funcion, [(-1, 1), (-0.01, 0.0001)], 12, 100, [0.5, 1, 2]).evaluar()[0])
+    pidx[2] = abs(PSO(definir_funcion, [(-1, 1), (-0.01, 0.00001)], 12, 100, [0.5, 1, 2]).evaluar()[0])
 
     pidy[0] = abs(PSO(definir_funcion, [(-1, 1), (0.3, 0.988)], 12, 100, [0.12, 1, 2]).evaluar()[0])
     pidy[1] = 0
-    pidy[2] = 0 #abs(PSO(definir_funcion, [(-1, 1), (-0.01, 0.00001)], 12, 100, [0.5, 1, 2]).evaluar()[0])
+    pidy[2] = abs(PSO(definir_funcion, [(-1, 1), (-0.01, 0.00001)], 12, 100, [0.5, 1, 2]).evaluar()[0])
 
     control_xa.set_gains(pidx[0], pidx[1], pidx[2], 0.1)    
     control_xb.set_gains(pidx[0], pidx[1], pidx[2], 0.1)    
